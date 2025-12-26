@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<Scene xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
+   <HBox minHeight="720.0" minWidth="1280.0" prefHeight="1080.0" prefWidth="1920.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css">
+      <children>
+         <Group>
+            <children>
+               <HBox prefHeight="720.0" prefWidth="1082.0">
+                  <children>
+                     <VBox prefHeight="698.0" prefWidth="944.0" styleClass="region">
+                        <children>
+                           <Label alignment="CENTER" prefHeight="17.0" prefWidth="846.0" styleClass="mainTitle" text="TITRE PAR DEFAULT1" textFill="WHITE" VBox.vgrow="ALWAYS" />
+                           <GridPane VBox.vgrow="ALWAYS">
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                           </GridPane>
+                           <Label prefHeight="17.0" prefWidth="955.0" styleClass="dehors" text="Dehors :" VBox.vgrow="ALWAYS" />
+                           <GridPane VBox.vgrow="ALWAYS">
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                           </GridPane>
+                           <Label prefHeight="24.0" prefWidth="838.0" styleClass="subTitle" text="SousTitre par défault" VBox.vgrow="ALWAYS" />
+                        </children>
+                     </VBox>
+                     <VBox prefHeight="710.0" prefWidth="229.0">
+                        <children>
+                           <VBox prefHeight="176.0" prefWidth="200.0" styleClass="region" VBox.vgrow="ALWAYS">
+                              <VBox.margin>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </VBox.margin>
+                              <children>
+                                 <Label prefHeight="30.0" prefWidth="198.0" styleClass="boxTitle" text="Ajouter un Anime" />
+                                 <Label styleClass="boxSubTitle" text="Nom de l'Anime" textFill="#f8f8f8" />
+                                 <TextField prefHeight="44.0" prefWidth="178.0" promptText="Entrez le nom ici" />
+                                 <Label styleClass="boxSubTitle" text="Position" textFill="WHITE" />
+                                 <HBox prefHeight="28.0" prefWidth="178.0">
+                                    <children>
+                                       <Label prefHeight="28.0" prefWidth="59.0" text="Top :" textFill="WHITE" />
+                                       <Spinner prefHeight="21.0" prefWidth="38.0" />
+                                       <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="Dehors" textFill="WHITE" />
+                                    </children>
+                                 </HBox>
+                                 <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="178.0" text="Ajouter" />
+                              </children>
+                           </VBox>
+                           <VBox prefHeight="316.0" prefWidth="200.0" styleClass="region">
+                              <children>
+                                 <Label prefHeight="21.0" prefWidth="198.0" styleClass="boxTitle" text="Paramètres" />
+                                 <Label prefHeight="17.0" prefWidth="182.0" styleClass="boxSubTitle" text="Titre du top" />
+                                 <TextField prefHeight="37.0" prefWidth="178.0" promptText="Titre du top ici" />
+                                 <Label prefHeight="17.0" prefWidth="208.0" styleClass="boxSubTitle" text="Sous titre du top" />
+                                 <TextField prefHeight="75.0" prefWidth="178.0" promptText="Soustitre du top ici" />
+                                 <HBox prefHeight="61.0" prefWidth="178.0">
+                                    <children>
+                                       <Label prefHeight="52.0" prefWidth="78.0" styleClass="boxSubTitle" text="Nombre de place" wrapText="true" />
+                                       <ChoiceBox prefHeight="52.0" prefWidth="79.0" />
+                                    </children>
+                                 </HBox>
+                                 <HBox prefHeight="56.0" prefWidth="178.0">
+                                    <children>
+                                       <Label prefHeight="52.0" prefWidth="85.0" styleClass="boxSubTitle" text="Image de fond" wrapText="true" />
+                                       <StackPane prefHeight="52.0" prefWidth="95.0">
+                                          <children>
+                                             <Label prefHeight="52.0" prefWidth="95.0" styleClass="text-field" text="Import Image" wrapText="true" />
+                                          </children>
+                                       </StackPane>
+                                    </children>
+                                 </HBox>
+                              </children>
+                              <opaqueInsets>
+                                 <Insets />
+                              </opaqueInsets>
+                              <VBox.margin>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </VBox.margin>
+                           </VBox>
+                           <VBox prefHeight="113.0" prefWidth="200.0" styleClass="region">
+                              <VBox.margin>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </VBox.margin>
+                              <children>
+                                 <StackPane prefHeight="42.0" prefWidth="178.0">
+                                    <children>
+                                       <Label prefHeight="24.0" prefWidth="181.0" styleClass="text-field" text="Import Top" />
+                                    </children>
+                                 </StackPane>
+                                 <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="179.0" text="Export to json" />
+                                 <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="178.0" text="Export to PNG" />
+                              </children>
+                           </VBox>
+                           <VBox prefHeight="55.0" prefWidth="200.0" styleClass="region">
+                              <children>
+                                 <Label prefHeight="20.0" prefWidth="188.0" styleClass="boxSubTitle" text="Fait par @gredimiya">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                              </children>
+                              <VBox.margin>
+                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              </VBox.margin>
+                           </VBox>
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+         </Group>
+      </children>
+   </HBox>
+</Scene>

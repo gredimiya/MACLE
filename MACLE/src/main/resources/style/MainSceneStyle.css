@@ -1,0 +1,68 @@
+.scene{
+    -fx-background-color: #323232;
+    -fx-pref-width: 1080;
+    -fx-pref-height: 720;
+}
+
+.region{
+    -fx-background-color: #323232;
+    -fx-border-color: white;
+    -fx-alignment: center;
+}
+
+.mainTitle{
+    -fx-text-fill: white;
+    -fx-font-size: 28;
+    -fx-alignment: center;
+    -fx-padding: 20 0 10 0;
+}
+
+.dehors{
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 10 0 5 40;
+}
+
+.subTitle{
+    -fx-text-fill: white;
+    -fx-font-size: 21;
+    -fx-alignment: center;
+    -fx-padding: 10 0 20 0;
+}
+
+.boxTitle{
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-alignment: left;
+    -fx-padding: 0 0 0 5;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.button{
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-padding: 10 10 10 10;
+    -fx-border-color: black;
+    -fx-font-size: 14;
+}
+
+.boxSubTitle{
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-alignment: left;
+    -fx-padding: 0 0 0 5;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-font-size: 14;
+}
