@@ -10,6 +10,7 @@ module com.macle.macle {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens com.macle.macle to javafx.fxml;
     exports com.macle.macle;
