@@ -7,11 +7,11 @@ public class Classement {
     int nb_place;
     ObservableList<String> top, out;
 
-    public Classement(int nb_place){
+    public Classement(int nb_place) {
         this.nb_place = nb_place;
         this.top = FXCollections.observableArrayList();
         this.out = FXCollections.observableArrayList();
-        for (int i=0; i<nb_place; i++) {
+        for (int i = 0; i < nb_place; i++) {
             this.top.add("");
         }
     }
@@ -42,6 +42,29 @@ public class Classement {
 
     void supp_out(String name){
         this.out.remove(name);
+    }
+
+    public void resize(int newSize) {
+        // 1. Si on réduit la taille
+        if (newSize < this.nb_place) {
+            // On récupère tout ce qui dépasse la nouvelle limite
+            for (int i = newSize; i < this.nb_place; i++) {
+                String animeQuiSort = this.top.get(i);
+                if (animeQuiSort != null && !animeQuiSort.isEmpty()) {
+                    this.out.add(animeQuiSort); // On l'envoie dans Dehors
+                }
+            }
+            // On supprime les places en trop du Top
+            this.top.subList(newSize, this.nb_place).clear();
+        }
+        // 2. Si on augmente la taille
+        else if (newSize > this.nb_place) {
+            for (int i = this.nb_place; i < newSize; i++) {
+                this.top.add(""); // On ajoute des places vides
+            }
+        }
+
+        this.nb_place = newSize;
     }
 
 }

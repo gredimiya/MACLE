@@ -1,7 +1,10 @@
 package com.macle.macle;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
@@ -10,10 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.util.ArrayList;
 
 public class MacleController {
     // Liaison avec le Front-End
@@ -31,11 +32,11 @@ public class MacleController {
 
     @FXML
     public void initialize() {
-        monClassement = new Classement(20);
+        monClassement = new Classement(15);
         // Configuration du spinner (1 à 20)
-        positionSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1));
-        nbPlaceChoiceBox.getItems().addAll(10, 20, 30, 50);
-        nbPlaceChoiceBox.setValue(20);
+        positionSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 1));
+        nbPlaceChoiceBox.getItems().addAll(5, 10, 15, 20);
+        nbPlaceChoiceBox.setValue(15);
         nbPlaceChoiceBox.setOnAction(e -> onChangeNbPlace());
     }
 
@@ -86,26 +87,39 @@ public class MacleController {
 
     private void remplirGrille(GridPane grille, ObservableList<String> liste) {
         grille.getChildren().clear();
+        grille.setAlignment(Pos.CENTER);
+
+        // Espacement important pour un rendu "Top" professionnel
+        grille.setHgap(60.0);
+        grille.setVgap(15.0);
+
         int row = 0;
         int col = 0;
 
         for (int i = 0; i < liste.size(); i++) {
             String nom = liste.get(i);
-            final int indexActuel = i; // Nécessaire pour l'utiliser dans la lambda
+            final int indexActuel = i;
 
-            if (nom != null && !nom.isEmpty()) {
-                Label label = new Label(nom);
-                label.getStyleClass().add("anime-name-label");
-                label.setCursor(javafx.scene.Cursor.HAND); // Change le curseur au survol
+            // On affiche toujours le numéro (ex: 01., 02.)
+            String prefixe = String.format("%02d. ", i + 1);
 
-                // AJOUT DE L'ÉVÉNEMENT DE CLIC
-                label.setOnMouseClicked(event -> {
-                    demanderNouvellePosition(nom, indexActuel, false);
-                });
+            // Si la place est vide, on affiche des pointillés ou on laisse vide après le numéro
+            String texteAffiché = prefixe + (nom.isEmpty() ? "........" : nom.toUpperCase());
 
-                grille.add(label, col, row);
-                row++;
-                if (row >= 10) { row = 0; col++; }
+            Label label = new Label(texteAffiché);
+            label.getStyleClass().add("anime-name-label");
+
+            // On garde le clic même sur les places vides pour pouvoir y placer un anime
+            label.setCursor(javafx.scene.Cursor.HAND);
+            label.setOnMouseClicked(event -> demanderNouvellePosition(nom, indexActuel, false));
+
+            grille.add(label, col, row);
+
+            row++;
+            // Passage à la colonne suivante après 5 noms (votre contrainte)
+            if (row >= 5) {
+                row = 0;
+                col++;
             }
         }
     }
@@ -156,13 +170,16 @@ public class MacleController {
     // OPTION 2 : Changer la taille du classement
     private void onChangeNbPlace() {
         int nouvelleTaille = nbPlaceChoiceBox.getValue();
-        // On crée un nouveau classement ou on adapte l'existant
-        monClassement = new Classement(nouvelleTaille);
 
-        // Mettre à jour le Spinner de position pour qu'il ne dépasse pas la nouvelle taille
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nouvelleTaille, 1);
+        // Appelle la méthode de redimensionnement pour gérer le transfert vers "Dehors"
+        monClassement.resize(nouvelleTaille);
+
+        // Met à jour le Spinner pour que l'utilisateur ne puisse plus choisir une position invalide
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, nouvelleTaille, 1);
         positionSpinner.setValueFactory(valueFactory);
 
+        // Rafraîchit l'affichage pour voir les changements
         rafraichirToutesLesGrilles();
     }
 
@@ -223,9 +240,10 @@ public class MacleController {
         if (file != null) {
             try (Reader reader = new FileReader(file)) {
                 Gson gson = new Gson();
-                Classement importe = gson.fromJson(reader, Classement.class);
+                // 1. Lire vers la classe temporaire (types standards)
+                ClassementSave importe = gson.fromJson(reader, ClassementSave.class);
 
-                // Mise à jour du classement actuel
+                // 2. Mettre à jour manuellement votre classement JavaFX
                 this.monClassement.top.setAll(importe.top);
                 this.monClassement.out.setAll(importe.out);
 
@@ -235,4 +253,11 @@ public class MacleController {
             }
         }
     }
+
+    class ClassementSave {
+        int nb_place;
+        ArrayList<String> top;
+        ArrayList<String> out;
+    }
+
 }

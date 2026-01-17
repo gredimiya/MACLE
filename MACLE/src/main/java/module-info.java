@@ -1,19 +1,14 @@
 module com.macle.macle {
+    // Bibliothèques JavaFX nécessaires
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
+    requires javafx.swing;    // Pour l'export PNG (SwingFXUtils)
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
-    requires java.desktop;
-    requires javafx.swing;
-    requires com.google.gson;
+    // Bibliothèque pour le JSON
+    requires com.google.gson; // Pour l'export/import JSON
 
-    opens com.macle.macle to javafx.fxml;
+    // Autorise JavaFX et GSON à accéder à vos classes
+    opens com.macle.macle to javafx.fxml, com.google.gson;
+
     exports com.macle.macle;
 }

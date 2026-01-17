@@ -14,33 +14,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.FlowPane?>
 
+<?import javafx.scene.layout.Region?>
 <HBox maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
     <children>
-        <VBox fx:id="mainContainer" styleClass="region" HBox.hgrow="ALWAYS">
-            <children>
-                <Label fx:id="mainTitleLabel" alignment="CENTER" maxWidth="Infinity" styleClass="mainTitle" text="TITRE PAR DEFAULT1" textFill="WHITE" VBox.vgrow="SOMETIMES" />
-                <GridPane fx:id="topGrid" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                </GridPane>
-                <Label styleClass="dehors" text="Dehors :" VBox.vgrow="NEVER" />
-                <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </FlowPane>
-                <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" VBox.vgrow="NEVER" />
-            </children>
-            <HBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </HBox.margin>
+        <VBox fx:id="mainContainer" styleClass="region" HBox.hgrow="ALWAYS" alignment="TOP_CENTER"> <children>
+            <Label fx:id="mainTitleLabel" styleClass="mainTitle" text="TITRE PAR DEFAULT1" alignment="CENTER" maxWidth="-Infinity" />
+
+            <GridPane fx:id="topGrid" VBox.vgrow="SOMETIMES" alignment="CENTER">
+            </GridPane>
+
+            <Label styleClass="dehors" text="Dehors :" />
+
+            <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="NEVER">
+                <padding>
+                    <Insets top="40.0" bottom="20.0" />
+                </padding>
+            </FlowPane>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" alignment="CENTER" maxWidth="-Infinity"/>
+        </children>
         </VBox>
 
         <VBox spacing="10.0" HBox.hgrow="SOMETIMES">

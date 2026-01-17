@@ -10,26 +10,6 @@
     -fx-alignment: TOP-LEFT;
 }
 
-.mainTitle{
-    -fx-text-fill: white;
-    -fx-font-size: 28;
-    -fx-alignment: TOP-LEFT;
-    -fx-padding: 20 0 10 0;
-}
-
-.dehors{
-    -fx-text-fill: white;
-    -fx-font-size: 14;
-    -fx-padding: 10 0 5 40;
-}
-
-.subTitle{
-    -fx-text-fill: white;
-    -fx-font-size: 21;
-    -fx-alignment: CENTER-LEFT;
-    -fx-padding: 10 0 20 0;
-}
-
 .text-field{
     -fx-background-color: white;
     -fx-font-size: 14;
@@ -94,8 +74,52 @@
     -fx-padding: 15;
 }
 
+/* Titre principal plus imposant */
+.mainTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 42px; /* Augmenté de 28px */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+    -fx-padding: 30 0 20 0;
+}
+
+/* Section Dehors plus lisible */
+.dehors {
+    -fx-text-fill: white;
+    -fx-font-size: 20px; /* Augmenté de 14px */
+    -fx-font-weight: bold;
+    -fx-padding: 20 0 10 40;
+}
+
+/* Texte des animes dans le FlowPane (Dehors) */
+.out-name-label {
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 18px;
+    -fx-padding: 5;
+}
+
+/* Sous-titre en bas */
+.subTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 28px; /* Augmenté de 21px */
+    -fx-alignment: CENTER;
+    -fx-padding: 20 0 30 0;
+}
+
 .anime-name-label {
     -fx-text-fill: white;
-    -fx-font-size: 14;
-    -fx-padding: 2 0 2 0; /* Réduire le padding latéral pour serrer les noms */
+    -fx-font-size: 26px; /* Police encore plus grande */
+    -fx-font-family: "Arial Black", sans-serif; /* Police plus grasse */
+    -fx-alignment: CENTER_LEFT; /* Aligné à gauche pour que les numéros soient droits */
+    -fx-min-width: 300px; /* Largeur augmentée pour prendre de la place */
+    -fx-padding: 10 20 10 20;
+}
+
+/* On peut différencier visuellement les places vides */
+.anime-name-label:empty {
+    -fx-text-fill: rgba(255, 255, 255, 0.3);
+}
+
+#outFlowPane {
+    -fx-padding: 0 0 0 40; /* Haut, Droite, Bas, GAUCHE (40px) */
 }
