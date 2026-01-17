@@ -33,7 +33,7 @@
 .boxTitle{
     -fx-text-fill: white;
     -fx-font-size: 20;
-    -fx-alignment: left;
+    -fx-alignment: CENTER-LEFT;
     -fx-padding: 0 0 0 5;
 }
 
@@ -55,7 +55,7 @@
 .boxSubTitle{
     -fx-text-fill: white;
     -fx-font-size: 14;
-    -fx-alignment: left;
+    -fx-alignment: CENTER-LEFT;
     -fx-padding: 0 0 0 5;
 }
 

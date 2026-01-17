@@ -18,7 +18,7 @@
         <VBox styleClass="region" HBox.hgrow="ALWAYS">
             <children>
                 <Label alignment="CENTER" maxWidth="Infinity" styleClass="mainTitle" text="TITRE PAR DEFAULT1" textFill="WHITE" VBox.vgrow="SOMETIMES" />
-                <GridPane VBox.vgrow="ALWAYS">
+                <GridPane fx:id="topGrid" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,7 +30,7 @@
                     </rowConstraints>
                 </GridPane>
                 <Label styleClass="dehors" text="Dehors :" VBox.vgrow="NEVER" />
-                <GridPane VBox.vgrow="ALWAYS">
+                <GridPane fx:id="outGrid" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,7 +63,7 @@
                                 <CheckBox fx:id="dehorsCheckBox" mnemonicParsing="false" text="Dehors" textFill="WHITE" />
                             </children>
                         </HBox>
-                        <Button fx:id="addButton" mnemonicParsing="false" text="Ajouter" />
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddAnime" text="Ajouter" />
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
