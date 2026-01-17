@@ -12,12 +12,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 
-<HBox maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
+<HBox maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
     <children>
-        <VBox styleClass="region" HBox.hgrow="ALWAYS">
+        <VBox fx:id="mainContainer" styleClass="region" HBox.hgrow="ALWAYS">
             <children>
-                <Label alignment="CENTER" maxWidth="Infinity" styleClass="mainTitle" text="TITRE PAR DEFAULT1" textFill="WHITE" VBox.vgrow="SOMETIMES" />
+                <Label fx:id="mainTitleLabel" alignment="CENTER" maxWidth="Infinity" styleClass="mainTitle" text="TITRE PAR DEFAULT1" textFill="WHITE" VBox.vgrow="SOMETIMES" />
                 <GridPane fx:id="topGrid" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,18 +31,12 @@
                     </rowConstraints>
                 </GridPane>
                 <Label styleClass="dehors" text="Dehors :" VBox.vgrow="NEVER" />
-                <GridPane fx:id="outGrid" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                </GridPane>
-                <Label styleClass="subTitle" text="SousTitre par défault" VBox.vgrow="NEVER" />
+                <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </FlowPane>
+                <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" VBox.vgrow="NEVER" />
             </children>
             <HBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -74,19 +69,19 @@
                     <children>
                         <Label styleClass="boxTitle" text="Paramètres" />
                         <Label styleClass="boxSubTitle" text="Titre du top" />
-                        <TextField promptText="Titre du top ici" />
+                        <TextField fx:id="mainTitleField" promptText="Titre du top ici" onKeyTyped="#onUpdateTitles" />
                         <Label styleClass="boxSubTitle" text="Sous titre du top" />
-                        <TextField promptText="Soustitre du top ici" />
+                        <TextField fx:id="subTitleField" promptText="Soustitre du top ici" onKeyTyped="#onUpdateTitles" />
                         <HBox spacing="10.0">
                             <children>
                                 <Label styleClass="boxSubTitle" text="Nombre de place" wrapText="true" />
-                                <ChoiceBox />
+                                <ChoiceBox fx:id="nbPlaceChoiceBox" />
                             </children>
                         </HBox>
                         <HBox spacing="10.0">
                             <children>
                                 <Label styleClass="boxSubTitle" text="Image de fond" wrapText="true" />
-                                <Button styleClass="text-field" text="Import Image" />
+                                <Button styleClass="text-field" text="Import Image" onAction="#onImportImage" />
                             </children>
                         </HBox>
                     </children>
@@ -97,9 +92,9 @@
 
                 <VBox spacing="5.0" styleClass="region">
                     <children>
-                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Import Top" />
-                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to json" />
-                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to PNG" />
+                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Import Top" onAction="#onImportTop"/>
+                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to json" onAction="#onExportToJson"/>
+                        <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to PNG" onAction="#onExportToPNG"/>
                     </children>
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

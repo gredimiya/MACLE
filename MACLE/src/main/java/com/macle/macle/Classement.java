@@ -7,7 +7,7 @@ public class Classement {
     int nb_place;
     ObservableList<String> top, out;
 
-    Classement(int nb_place){
+    public Classement(int nb_place){
         this.nb_place = nb_place;
         this.top = FXCollections.observableArrayList();
         this.out = FXCollections.observableArrayList();

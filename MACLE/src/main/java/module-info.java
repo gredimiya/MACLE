@@ -11,6 +11,8 @@ module com.macle.macle {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires javafx.swing;
+    requires com.google.gson;
 
     opens com.macle.macle to javafx.fxml;
     exports com.macle.macle;

@@ -7,13 +7,13 @@
 .region{
     -fx-background-color: #323232;
     -fx-border-color: white;
-    -fx-alignment: center;
+    -fx-alignment: TOP-LEFT;
 }
 
 .mainTitle{
     -fx-text-fill: white;
     -fx-font-size: 28;
-    -fx-alignment: center;
+    -fx-alignment: TOP-LEFT;
     -fx-padding: 20 0 10 0;
 }
 
@@ -26,15 +26,8 @@
 .subTitle{
     -fx-text-fill: white;
     -fx-font-size: 21;
-    -fx-alignment: center;
-    -fx-padding: 10 0 20 0;
-}
-
-.boxTitle{
-    -fx-text-fill: white;
-    -fx-font-size: 20;
     -fx-alignment: CENTER-LEFT;
-    -fx-padding: 0 0 0 5;
+    -fx-padding: 10 0 20 0;
 }
 
 .text-field{
@@ -52,17 +45,57 @@
     -fx-font-size: 14;
 }
 
-.boxSubTitle{
-    -fx-text-fill: white;
-    -fx-font-size: 14;
-    -fx-alignment: CENTER-LEFT;
-    -fx-padding: 0 0 0 5;
-}
-
 .text-field{
     -fx-background-color: white;
     -fx-alignment: center;
     -fx-text-fill: black;
     -fx-border-color: black;
     -fx-font-size: 14;
+}
+
+.anime-label {
+    -fx-padding: 5;
+    -fx-text-fill: white;
+}
+
+.boxTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-alignment: CENTER-LEFT; /* Correction du 'left' qui plantait */
+    -fx-padding: 0 0 0 5;
+}
+
+.boxSubTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-alignment: CENTER-LEFT; /* Correction du 'left' */
+    -fx-padding: 0 0 0 5;
+}
+
+/* Style pour les noms d'animes dans la grille */
+.anime-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 2 5 2 5;
+}
+
+/* Nettoyage des doublons .text-field */
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Optionnel : ajoutez un espacement dans les grilles */
+#topGrid, #outGrid {
+    -fx-hgap: 20;
+    -fx-vgap: 5;
+    -fx-padding: 15;
+}
+
+.anime-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 2 0 2 0; /* Réduire le padding latéral pour serrer les noms */
 }
