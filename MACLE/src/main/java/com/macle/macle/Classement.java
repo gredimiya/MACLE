@@ -29,14 +29,32 @@ public class Classement {
         this.out.add(name);
     }
 
-    void decaler(int pos){
-        // Si la dernière place n'est pas vide, l'élément sort du top
-        if (!this.top.getLast().isEmpty()) {
-            this.out.add(this.top.getLast());
+    public void decaler(int index) {
+        // 1. Chercher le premier trou (chaîne vide) à partir de l'index d'insertion
+        int indexTrou = -1;
+        for (int i = index; i < nb_place; i++) {
+            if (top.get(i).isEmpty()) {
+                indexTrou = i;
+                break;
+            }
         }
-        // Décalage vers le bas
-        for (int i = this.nb_place - 2; i >= pos; i--) {
-            this.top.set(i + 1, this.top.get(i));
+
+        // 2. Si on a trouvé un trou, on décale uniquement jusqu'à ce trou
+        if (indexTrou != -1) {
+            for (int i = indexTrou; i > index; i--) {
+                top.set(i, top.get(i - 1));
+            }
+            // La place à l'index est maintenant prête à être écrasée par le nouvel anime
+        }
+        // 3. Si aucun trou n'est trouvé, on suit l'ancien comportement (le dernier sort)
+        else {
+            String dernier = top.get(nb_place - 1);
+            if (!dernier.isEmpty()) {
+                out.add(dernier);
+            }
+            for (int i = nb_place - 1; i > index; i--) {
+                top.set(i, top.get(i - 1));
+            }
         }
     }
 

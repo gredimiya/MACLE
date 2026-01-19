@@ -15,17 +15,19 @@
 <?import javafx.scene.layout.FlowPane?>
 
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
 <HBox maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
     <children>
         <VBox fx:id="mainContainer" styleClass="region" HBox.hgrow="ALWAYS" alignment="TOP_CENTER"> <children>
-            <Label fx:id="mainTitleLabel" styleClass="mainTitle" text="TITRE PAR DEFAULT1" alignment="CENTER" maxWidth="-Infinity" />
+            <Label fx:id="mainTitleLabel" styleClass="mainTitle" text="TITRE PAR DEFAULT1" alignment="CENTER" maxWidth="Infinity" />
 
-            <GridPane fx:id="topGrid" VBox.vgrow="SOMETIMES" alignment="CENTER">
+            <GridPane fx:id="topGrid" VBox.vgrow="ALWAYS" alignment="CENTER">
             </GridPane>
 
             <Label styleClass="dehors" text="Dehors :" />
 
-            <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="NEVER">
+            <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="SOMETIMES">
                 <padding>
                     <Insets top="40.0" bottom="20.0" />
                 </padding>
@@ -33,7 +35,7 @@
 
             <Region VBox.vgrow="ALWAYS" />
 
-            <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" alignment="CENTER" maxWidth="-Infinity"/>
+            <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" alignment="CENTER" maxWidth="Infinity"/>
         </children>
         </VBox>
 
@@ -59,29 +61,18 @@
                     </padding>
                 </VBox>
 
-                <VBox styleClass="region" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="boxTitle" text="Paramètres" />
-                        <Label styleClass="boxSubTitle" text="Titre du top" />
-                        <TextField fx:id="mainTitleField" promptText="Titre du top ici" onKeyTyped="#onUpdateTitles" />
-                        <Label styleClass="boxSubTitle" text="Sous titre du top" />
-                        <TextField fx:id="subTitleField" promptText="Soustitre du top ici" onKeyTyped="#onUpdateTitles" />
-                        <HBox spacing="10.0">
-                            <children>
-                                <Label styleClass="boxSubTitle" text="Nombre de place" wrapText="true" />
-                                <ChoiceBox fx:id="nbPlaceChoiceBox" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="10.0">
-                            <children>
-                                <Label styleClass="boxSubTitle" text="Image de fond" wrapText="true" />
-                                <Button styleClass="text-field" text="Import Image" onAction="#onImportImage" />
-                            </children>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
+                <VBox spacing="5.0" styleClass="region">
+                    <Label styleClass="boxTitle" text="Style Titre" />
+                    <Slider fx:id="titleFontSizeSlider" min="10" max="100" value="50" onMouseReleased="#rafraichirToutesLesGrilles" />
+                    <ColorPicker fx:id="titleColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                    <CheckBox fx:id="titleOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                </VBox>
+
+                <VBox spacing="5.0" styleClass="region">
+                    <Label styleClass="boxTitle" text="Style Top" />
+                    <Slider fx:id="topFontSizeSlider" min="10" max="80" value="30" onMouseReleased="#rafraichirToutesLesGrilles" />
+                    <ColorPicker fx:id="topColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                    <CheckBox fx:id="topOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
                 </VBox>
 
                 <VBox spacing="5.0" styleClass="region">

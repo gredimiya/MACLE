@@ -83,19 +83,16 @@
     -fx-padding: 30 0 20 0;
 }
 
-/* Section Dehors plus lisible */
-.dehors {
+/* Style du label "Dehors :" et des éléments de la liste */
+.dehors, .out-name-label {
     -fx-text-fill: white;
-    -fx-font-size: 20px; /* Augmenté de 14px */
+    -fx-font-size: 20px; /* Taille identique pour le titre et les éléments */
     -fx-font-weight: bold;
-    -fx-padding: 20 0 10 40;
+    -fx-font-family: "Arial", sans-serif; /* Moins gras que le Arial Black du Top */
 }
 
-/* Texte des animes dans le FlowPane (Dehors) */
 .out-name-label {
-    -fx-text-fill: #cccccc;
-    -fx-font-size: 18px;
-    -fx-padding: 5;
+    -fx-padding: 5 10 5 0; /* Padding léger pour séparer les noms */
 }
 
 /* Sous-titre en bas */
@@ -108,11 +105,11 @@
 
 .anime-name-label {
     -fx-text-fill: white;
-    -fx-font-size: 26px; /* Police encore plus grande */
-    -fx-font-family: "Arial Black", sans-serif; /* Police plus grasse */
-    -fx-alignment: CENTER_LEFT; /* Aligné à gauche pour que les numéros soient droits */
-    -fx-min-width: 300px; /* Largeur augmentée pour prendre de la place */
-    -fx-padding: 10 20 10 20;
+    -fx-font-size: 36px; /* Augmenté de 26px à 36px */
+    -fx-font-family: "Arial Black", sans-serif;
+    -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 400px; /* Augmenté de 300px pour laisser de la place au texte plus grand */
+    -fx-padding: 15 25 15 25; /* Plus d'espace interne */
 }
 
 /* On peut différencier visuellement les places vides */
@@ -122,4 +119,8 @@
 
 #outFlowPane {
     -fx-padding: 0 0 0 40; /* Haut, Droite, Bas, GAUCHE (40px) */
+}
+
+#mainContainer {
+    -fx-padding: 20; /* Ajoute 20 pixels de padding sur les 4 côtés */
 }
