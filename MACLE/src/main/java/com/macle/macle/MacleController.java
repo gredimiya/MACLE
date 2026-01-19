@@ -204,51 +204,84 @@ public class MacleController {
     }
 
     private void remplirGrille(GridPane grille, ObservableList<String> liste) {
-        // 1. Nettoyage et préparation de la grille
         grille.getChildren().clear();
         grille.getRowConstraints().clear();
         grille.setAlignment(Pos.CENTER);
 
-        // 2. Récupération des paramètres de personnalisation
         double fontSize = topFontSizeSlider.getValue();
         javafx.scene.paint.Color color = topColorPicker.getValue();
         boolean outline = topOutlineCheckBox.isSelected();
         boolean bold = (topBoldCheckBox != null && topBoldCheckBox.isSelected());
-
-        // Récupération de l'écartement via le nouveau slider
         double columnGap = columnGapSlider.getValue();
 
-        // 3. Configuration des contraintes de lignes
         for (int i = 0; i < 5; i++) {
             RowConstraints rc = new RowConstraints();
             rc.setPercentHeight(20);
             rc.setValignment(VPos.CENTER);
             grille.getRowConstraints().add(rc);
         }
-
-        // 4. Application de l'écartement dynamique entre les colonnes
         grille.setHgap(columnGap);
 
         int row = 0;
         int col = 0;
 
-        // 5. Génération des Labels
         for (int i = 0; i < liste.size(); i++) {
             String nom = liste.get(i);
+            final int indexSource = i; // Index actuel de l'élément
             String prefixe = String.format("%02d. ", i + 1);
             String texteAffiché = prefixe + (nom.isEmpty() ? "........" : nom);
 
             Label label = new Label(texteAffiché);
             label.getStyleClass().add("anime-name-label");
-
-            // Utilisation de genererStyle avec le paramètre isTop = true
             label.setStyle(genererStyle(fontSize, color, outline, bold, true));
-
             label.setMaxWidth(Double.MAX_VALUE);
             label.setCursor(javafx.scene.Cursor.HAND);
 
-            final int indexActuel = i;
-            label.setOnMouseClicked(event -> demanderNouvellePosition(nom, indexActuel, false));
+            // --- GESTION DU DRAG AND DROP ---
+
+            // 1. Détecter le début du glissement
+            label.setOnDragDetected(event -> {
+                if (!liste.get(indexSource).isEmpty()) {
+                    javafx.scene.input.Dragboard db = label.startDragAndDrop(javafx.scene.input.TransferMode.MOVE);
+                    javafx.scene.input.ClipboardContent content = new javafx.scene.input.ClipboardContent();
+                    content.putString(String.valueOf(indexSource)); // On stocke l'index d'origine
+                    db.setContent(content);
+                    event.consume();
+                }
+            });
+
+            // 2. Accepter le survol si c'est un index valide
+            label.setOnDragOver(event -> {
+                if (event.getGestureSource() != label && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(javafx.scene.input.TransferMode.MOVE);
+                }
+                event.consume();
+            });
+
+            // 3. Gérer le dépôt (Drop)
+            label.setOnDragDropped(event -> {
+                javafx.scene.input.Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    int indexOrigine = Integer.parseInt(db.getString());
+                    int indexCible = indexSource;
+
+                    // Logique d'échange ou de déplacement
+                    String animeDeplace = liste.get(indexOrigine);
+                    String animeCible = liste.get(indexCible);
+
+                    liste.set(indexOrigine, animeCible);
+                    liste.set(indexCible, animeDeplace);
+
+                    success = true;
+                    rafraichirToutesLesGrilles();
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            });
+
+            // Garder le clic pour le menu d'options
+            label.setOnMouseClicked(event -> demanderNouvellePosition(nom, indexSource, false));
 
             grille.add(label, col, row);
 
