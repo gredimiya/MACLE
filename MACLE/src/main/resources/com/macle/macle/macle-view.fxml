@@ -39,7 +39,7 @@
         </children>
         </VBox>
 
-        <VBox spacing="10.0" HBox.hgrow="SOMETIMES">
+        <VBox styleClass="region" VBox.vgrow="ALWAYS" spacing="10.0" prefWidth="300.0" minWidth="300.0" maxWidth="300.0">
             <children>
                 <VBox styleClass="region" VBox.vgrow="ALWAYS">
                     <children>
@@ -61,18 +61,85 @@
                     </padding>
                 </VBox>
 
-                <VBox spacing="5.0" styleClass="region">
-                    <Label styleClass="boxTitle" text="Style Titre" />
-                    <Slider fx:id="titleFontSizeSlider" min="10" max="100" value="50" onMouseReleased="#rafraichirToutesLesGrilles" />
-                    <ColorPicker fx:id="titleColorPicker" onAction="#rafraichirToutesLesGrilles" />
-                    <CheckBox fx:id="titleOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
-                </VBox>
+                <VBox styleClass="region" VBox.vgrow="ALWAYS" spacing="10.0">
+                    <children>
+                        <Label styleClass="boxTitle" text="Paramètres Généraux" />
 
-                <VBox spacing="5.0" styleClass="region">
-                    <Label styleClass="boxTitle" text="Style Top" />
-                    <Slider fx:id="topFontSizeSlider" min="10" max="80" value="30" onMouseReleased="#rafraichirToutesLesGrilles" />
-                    <ColorPicker fx:id="topColorPicker" onAction="#rafraichirToutesLesGrilles" />
-                    <CheckBox fx:id="topOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                        <Label styleClass="boxSubTitle" text="Titre du top" />
+                        <TextField fx:id="mainTitleField" promptText="Titre du top ici" onKeyTyped="#onUpdateTitles" />
+
+                        <Label styleClass="boxSubTitle" text="Sous titre du top" />
+                        <TextField fx:id="subTitleField" promptText="Soustitre du top ici" onKeyTyped="#onUpdateTitles" />
+
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <children>
+                                <Label styleClass="boxSubTitle" text="Nombre de places" />
+                                <ChoiceBox fx:id="nbPlaceChoiceBox" />
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <children>
+                                <Label styleClass="boxSubTitle" text="Image de fond" />
+                                <Button styleClass="text-field" text="Import Image" onAction="#onImportImage" />
+                            </children>
+                        </HBox>
+                        <Label styleClass="boxSubTitle" text="Opacité du fond" textFill="WHITE" />
+                        <Slider fx:id="backgroundOpacitySlider" min="0" max="1" value="1" onMouseReleased="#rafraichirToutesLesGrilles" />
+
+                        <VBox spacing="5.0" styleClass="region">
+                            <Label styleClass="boxTitle" text="Style Titre" />
+                            <Slider fx:id="titleFontSizeSlider" min="10" max="100" value="50" onMouseReleased="#rafraichirToutesLesGrilles" />
+                            <ColorPicker fx:id="titleColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                            <HBox spacing="10.0">
+                                <Label styleClass="boxSubTitle" text="Contour"/>
+                                <CheckBox fx:id="titleOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                <Label styleClass="boxSubTitle" text="Gras"/>
+                                <CheckBox fx:id="titleBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="5.0" styleClass="region">
+                            <Label styleClass="boxTitle" text="Style Top" />
+                            <Slider fx:id="topFontSizeSlider" min="10" max="80" value="36" onMouseReleased="#rafraichirToutesLesGrilles" />
+                            <Label styleClass="boxSubTitle" text="Écart colonnes" textFill="WHITE" />
+                            <Slider fx:id="columnGapSlider" min="20" max="300" value="120" onMouseReleased="#rafraichirToutesLesGrilles" />
+                            <ColorPicker fx:id="topColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                            <HBox spacing="10.0">
+                                <Label styleClass="boxSubTitle" text="Contour"/>
+                                <CheckBox fx:id="topOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                <Label styleClass="boxSubTitle" text="Gras"/>
+                                <CheckBox fx:id="topBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="5.0" styleClass="region">
+                            <Label styleClass="boxTitle" text="Style Sous-Titre" />
+                            <Slider fx:id="subFontSizeSlider" min="10" max="80" value="28" onMouseReleased="#rafraichirToutesLesGrilles" />
+                            <ColorPicker fx:id="subColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                            <HBox spacing="10.0">
+                                <Label styleClass="boxSubTitle" text="Contour"/>
+                                <CheckBox fx:id="subOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                <Label styleClass="boxSubTitle" text="Gras"/>
+                                <CheckBox fx:id="subBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="5.0" styleClass="region">
+                            <Label styleClass="boxTitle" text="Style Dehors" />
+                            <Slider fx:id="outFontSizeSlider" min="10" max="60" value="20" onMouseReleased="#rafraichirToutesLesGrilles" />
+                            <ColorPicker fx:id="outColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                            <HBox spacing="10.0">
+                                <Label styleClass="boxSubTitle" text="Contour"/>
+                                <CheckBox fx:id="outOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                <Label styleClass="boxSubTitle" text="Gras"/>
+                                <CheckBox fx:id="outBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                            </HBox>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
                 </VBox>
 
                 <VBox spacing="5.0" styleClass="region">

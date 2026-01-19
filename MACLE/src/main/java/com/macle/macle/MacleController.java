@@ -24,7 +24,7 @@ public class MacleController {
     @FXML private CheckBox dehorsCheckBox;
     @FXML private GridPane topGrid;
     @FXML private FlowPane outFlowPane;
-    @FXML private Label mainTitleLabel, subTitleLabel, dehorsTitleLabel;
+    @FXML private Label mainTitleLabel, subTitleLabel;
     @FXML private TextField mainTitleField, subTitleField;
     @FXML private ChoiceBox<Integer> nbPlaceChoiceBox;
     @FXML private VBox mainContainer;
@@ -43,11 +43,20 @@ public class MacleController {
     @FXML private Slider topFontSizeSlider;
     @FXML private ColorPicker topColorPicker;
     @FXML private CheckBox topOutlineCheckBox;
+    @FXML private Slider columnGapSlider;
 
     // --- Options de personnalisation : DEHORS ---
     @FXML private Slider outFontSizeSlider;
     @FXML private ColorPicker outColorPicker;
     @FXML private CheckBox outOutlineCheckBox;
+
+    // --- Check box pour le gras
+    @FXML private CheckBox titleBoldCheckBox;
+    @FXML private CheckBox subBoldCheckBox;
+    @FXML private CheckBox topBoldCheckBox;
+    @FXML private CheckBox outBoldCheckBox;
+
+    @FXML private Slider backgroundOpacitySlider;
 
     private Classement monClassement;
 
@@ -67,6 +76,12 @@ public class MacleController {
                 positionSpinner.getEditor().setText(oldValue);
             }
         });
+
+        backgroundOpacitySlider.valueProperty().addListener((obs, oldVal, newVal) -> rafraichirToutesLesGrilles());
+
+        if (columnGapSlider != null) {
+            columnGapSlider.valueProperty().addListener((obs, oldVal, newVal) -> rafraichirToutesLesGrilles());
+        }
 
         // 3. Configuration du ChoiceBox (Nombre de places)
         nbPlaceChoiceBox.getItems().clear();
@@ -92,6 +107,7 @@ public class MacleController {
 
     @FXML
     protected void onAddAnime() {
+        positionSpinner.increment(0);
         String nom = animeNameField.getText();
         if (nom == null || nom.isEmpty()) return;
 
@@ -107,34 +123,62 @@ public class MacleController {
 
     @FXML
     protected void rafraichirToutesLesGrilles() {
-        // 1. Appliquer le style au Titre Principal
+        if (mainTitleLabel == null) return;
+
+        // 1. Style Titre
         mainTitleLabel.setStyle(genererStyle(titleFontSizeSlider.getValue(),
                 titleColorPicker.getValue(),
-                titleOutlineCheckBox.isSelected()));
+                titleOutlineCheckBox.isSelected(),
+                titleBoldCheckBox.isSelected(), false));
 
-        // 2. Appliquer le style au Sous-Titre
+        // 2. Style Sous-Titre
         subTitleLabel.setStyle(genererStyle(subFontSizeSlider.getValue(),
                 subColorPicker.getValue(),
-                subOutlineCheckBox.isSelected()));
+                subOutlineCheckBox.isSelected(),
+                subBoldCheckBox.isSelected(), false));
 
-        // 3. Appliquer le style au label "Dehors :"
-        dehorsTitleLabel.setStyle(genererStyle(outFontSizeSlider.getValue(),
-                outColorPicker.getValue(),
-                outOutlineCheckBox.isSelected()));
+        if (mainContainer != null && backgroundOpacitySlider != null) {
+            // On récupère le chemin de l'image stocké (ou actuel)
+            // Note : Il est préférable de stocker l'URL de l'image dans une variable de classe
+            // pour la retrouver ici facilement.
+            String currentStyle = mainContainer.getStyle();
 
-        // 4. Rafraîchir les listes (qui utiliseront leurs propres sliders)
+            // Calcul de l'opacité du "voile" noir (0 = transparent, 1 = noir total)
+            // On inverse la valeur du slider pour que 1 = image claire et 0 = image sombre/invisible
+            double opacity = 1.0 - backgroundOpacitySlider.getValue();
+            String rgba = "rgba(50, 50, 50, " + opacity + ")"; // #323232 correspond à votre gris d'origine
+
+            // On applique l'image ET le voile de couleur par-dessus
+            // L'ordre dans -fx-background-color et -fx-background-image permet la superposition
+            mainContainer.setStyle(currentStyle +
+                    "; -fx-background-color: " + rgba + ", linear-gradient(to bottom, transparent, transparent);");
+        }
+        // 4. Rafraîchir les listes
         remplirGrille(topGrid, monClassement.top);
         remplirFlowPane(outFlowPane, monClassement.out);
     }
 
     // Fonction utilitaire pour générer la chaîne CSS
-    private String genererStyle(double size, javafx.scene.paint.Color color, boolean outline) {
-        String style = "-fx-font-size: " + size + "px; " +
-                "-fx-text-fill: " + toHexString(color) + "; ";
-        if (outline) {
-            style += "-fx-effect: dropshadow(three-pass-box, black, 2, 1, 0, 0); ";
+    private String genererStyle(double size, javafx.scene.paint.Color color, boolean outline, boolean isBold, boolean isTop) {
+        StringBuilder style = new StringBuilder();
+        style.append("-fx-font-size: ").append(size).append("px; ");
+        style.append("-fx-text-fill: ").append(toHexString(color)).append("; ");
+
+        if (isTop) {
+            style.append("-fx-font-family: 'Arial Black'; ");
         }
-        return style;
+
+        if (isBold) {
+            style.append("-fx-font-weight: bold; ");
+        } else {
+            style.append("-fx-font-weight: normal; ");
+        }
+
+        if (outline) {
+            style.append("-fx-effect: dropshadow(three-pass-box, black, 2, 1, 0, 0); ");
+        }
+
+        return style.toString();
     }
 
     private void remplirFlowPane(FlowPane pane, ObservableList<String> liste) {
@@ -143,12 +187,13 @@ public class MacleController {
         double fontSize = outFontSizeSlider.getValue();
         javafx.scene.paint.Color color = outColorPicker.getValue();
         boolean outline = outOutlineCheckBox.isSelected();
+        boolean bold = outBoldCheckBox.isSelected();
 
         for (int i = 0; i < liste.size(); i++) {
             String nom = liste.get(i);
             if (nom != null && !nom.isEmpty()) {
                 Label label = new Label(nom + (i < liste.size() - 1 ? ", " : ""));
-                label.setStyle(genererStyle(fontSize, color, outline));
+                label.setStyle(genererStyle(fontSize, color, outline, bold, false));
                 label.setCursor(javafx.scene.Cursor.HAND);
 
                 final int index = i;
@@ -159,14 +204,21 @@ public class MacleController {
     }
 
     private void remplirGrille(GridPane grille, ObservableList<String> liste) {
+        // 1. Nettoyage et préparation de la grille
         grille.getChildren().clear();
         grille.getRowConstraints().clear();
         grille.setAlignment(Pos.CENTER);
 
+        // 2. Récupération des paramètres de personnalisation
         double fontSize = topFontSizeSlider.getValue();
-        String hexColor = toHexString(topColorPicker.getValue());
-        boolean hasOutline = topOutlineCheckBox.isSelected();
+        javafx.scene.paint.Color color = topColorPicker.getValue();
+        boolean outline = topOutlineCheckBox.isSelected();
+        boolean bold = (topBoldCheckBox != null && topBoldCheckBox.isSelected());
 
+        // Récupération de l'écartement via le nouveau slider
+        double columnGap = columnGapSlider.getValue();
+
+        // 3. Configuration des contraintes de lignes
         for (int i = 0; i < 5; i++) {
             RowConstraints rc = new RowConstraints();
             rc.setPercentHeight(20);
@@ -174,11 +226,13 @@ public class MacleController {
             grille.getRowConstraints().add(rc);
         }
 
-        grille.setHgap(120.0);
+        // 4. Application de l'écartement dynamique entre les colonnes
+        grille.setHgap(columnGap);
 
         int row = 0;
         int col = 0;
 
+        // 5. Génération des Labels
         for (int i = 0; i < liste.size(); i++) {
             String nom = liste.get(i);
             String prefixe = String.format("%02d. ", i + 1);
@@ -187,15 +241,9 @@ public class MacleController {
             Label label = new Label(texteAffiché);
             label.getStyleClass().add("anime-name-label");
 
-            StringBuilder style = new StringBuilder();
-            style.append("-fx-font-size: ").append(fontSize).append("px; ");
-            style.append("-fx-text-fill: ").append(hexColor).append("; ");
-            style.append("-fx-font-family: 'Arial Black'; ");
-            if (hasOutline) {
-                style.append("-fx-effect: dropshadow(three-pass-box, black, 2, 1, 0, 0); ");
-            }
+            // Utilisation de genererStyle avec le paramètre isTop = true
+            label.setStyle(genererStyle(fontSize, color, outline, bold, true));
 
-            label.setStyle(style.toString());
             label.setMaxWidth(Double.MAX_VALUE);
             label.setCursor(javafx.scene.Cursor.HAND);
 
@@ -205,7 +253,10 @@ public class MacleController {
             grille.add(label, col, row);
 
             row++;
-            if (row >= 5) { row = 0; col++; }
+            if (row >= 5) {
+                row = 0;
+                col++;
+            }
         }
     }
 
@@ -361,14 +412,38 @@ public class MacleController {
         if (file != null) {
             try (Writer writer = new FileWriter(file)) {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-                // Création de l'objet de sauvegarde complet
                 ClassementSave save = new ClassementSave();
+
+                // Données de base
                 save.nb_place = monClassement.nb_place;
                 save.top = new ArrayList<>(monClassement.top);
                 save.out = new ArrayList<>(monClassement.out);
-                save.mainTitle = mainTitleLabel.getText(); // On récupère le titre actuel
-                save.subTitle = subTitleLabel.getText();   // On récupère le sous-titre actuel
+                save.mainTitle = mainTitleLabel.getText();
+                save.subTitle = subTitleLabel.getText();
+
+                // Sauvegarde des Tailles et Écart
+                save.titleSize = titleFontSizeSlider.getValue();
+                save.subSize = subFontSizeSlider.getValue();
+                save.topSize = topFontSizeSlider.getValue();
+                save.outSize = outFontSizeSlider.getValue();
+                save.columnGap = columnGapSlider.getValue();
+
+                // Sauvegarde des Couleurs (en format Hex)
+                save.titleColor = toHexString(titleColorPicker.getValue());
+                save.subColor = toHexString(subColorPicker.getValue());
+                save.topColor = toHexString(topColorPicker.getValue());
+                save.outColor = toHexString(outColorPicker.getValue());
+
+                // Sauvegarde des Options (Contour et Gras)
+                save.titleOutline = titleOutlineCheckBox.isSelected();
+                save.subOutline = subOutlineCheckBox.isSelected();
+                save.topOutline = topOutlineCheckBox.isSelected();
+                save.outOutline = outOutlineCheckBox.isSelected();
+
+                save.titleBold = titleBoldCheckBox.isSelected();
+                save.subBold = subBoldCheckBox.isSelected();
+                save.topBold = topBoldCheckBox.isSelected();
+                save.outBold = outBoldCheckBox.isSelected();
 
                 gson.toJson(save, writer);
             } catch (IOException e) {
@@ -387,33 +462,41 @@ public class MacleController {
                 Gson gson = new Gson();
                 ClassementSave importe = gson.fromJson(reader, ClassementSave.class);
 
-                // 1. Mise à jour de la logique métier
-                // On s'assure que l'objet monClassement prend la taille importée
+                // 1. Logique métier et titres
                 this.monClassement.nb_place = importe.nb_place;
                 this.monClassement.top.setAll(importe.top);
                 this.monClassement.out.setAll(importe.out);
-
-                // 2. Mise à jour des outils de la barre latérale
-                // On sélectionne la valeur correspondante dans le ChoiceBox
                 nbPlaceChoiceBox.setValue(importe.nb_place);
+                mainTitleField.setText(importe.mainTitle);
+                subTitleField.setText(importe.subTitle);
+                onUpdateTitles();
 
-                // On recalibre le Spinner pour qu'il ne dépasse pas la nouvelle limite
-                SpinnerValueFactory<Integer> valueFactory =
-                        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, importe.nb_place, 1);
-                positionSpinner.setValueFactory(valueFactory);
+                // 2. Restauration des Styles (Sliders et Écart)
+                titleFontSizeSlider.setValue(importe.titleSize);
+                subFontSizeSlider.setValue(importe.subSize);
+                topFontSizeSlider.setValue(importe.topSize);
+                outFontSizeSlider.setValue(importe.outSize);
+                columnGapSlider.setValue(importe.columnGap);
 
-                // 3. Restaurer les titres (Labels et TextFields)
-                if (importe.mainTitle != null) {
-                    mainTitleLabel.setText(importe.mainTitle);
-                    mainTitleField.setText(importe.mainTitle);
-                }
-                if (importe.subTitle != null) {
-                    subTitleLabel.setText(importe.subTitle);
-                    subTitleField.setText(importe.subTitle);
-                }
+                // 3. Restauration des Couleurs
+                titleColorPicker.setValue(javafx.scene.paint.Color.valueOf(importe.titleColor));
+                subColorPicker.setValue(javafx.scene.paint.Color.valueOf(importe.subColor));
+                topColorPicker.setValue(javafx.scene.paint.Color.valueOf(importe.topColor));
+                outColorPicker.setValue(javafx.scene.paint.Color.valueOf(importe.outColor));
+
+                // 4. Restauration des Options
+                titleOutlineCheckBox.setSelected(importe.titleOutline);
+                subOutlineCheckBox.setSelected(importe.subOutline);
+                topOutlineCheckBox.setSelected(importe.topOutline);
+                outOutlineCheckBox.setSelected(importe.outOutline);
+
+                titleBoldCheckBox.setSelected(importe.titleBold);
+                subBoldCheckBox.setSelected(importe.subBold);
+                topBoldCheckBox.setSelected(importe.topBold);
+                outBoldCheckBox.setSelected(importe.outBold);
 
                 rafraichirToutesLesGrilles();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -423,8 +506,13 @@ public class MacleController {
         int nb_place;
         ArrayList<String> top;
         ArrayList<String> out;
-        String mainTitle; // Nouveau champ
-        String subTitle;  // Nouveau champ
+        String mainTitle;
+        String subTitle;
+
+        double titleSize, subSize, topSize, outSize, columnGap;
+        String titleColor, subColor, topColor, outColor;
+        boolean titleOutline, subOutline, topOutline, outOutline;
+        boolean titleBold, subBold, topBold, outBold;
     }
 
 }
