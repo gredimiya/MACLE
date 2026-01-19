@@ -70,7 +70,6 @@
 
 /* Optionnel : ajoutez un espacement dans les grilles */
 #topGrid, #outGrid {
-    -fx-hgap: 20;
     -fx-vgap: 5;
     -fx-padding: 15;
 }
