@@ -1,0 +1,118 @@
+.scene{
+    -fx-background-color: #323232;
+}
+
+.region{
+    -fx-background-color: #323232;
+    -fx-border-color: white;
+    -fx-alignment: TOP-LEFT;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.button{
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-padding: 10 10 10 10;
+    -fx-border-color: black;
+    -fx-font-size: 14;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-font-size: 14;
+}
+
+.anime-label {
+    -fx-padding: 5;
+    -fx-text-fill: white;
+}
+
+.boxTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-alignment: CENTER-LEFT; /* Correction du 'left' qui plantait */
+    -fx-padding: 0 0 0 5;
+}
+
+.boxSubTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-alignment: CENTER-LEFT; /* Correction du 'left' */
+    -fx-padding: 0 0 0 5;
+}
+
+/* Style pour les noms d'animes dans la grille */
+.anime-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+    -fx-font-family: "Arial Black", sans-serif;
+    -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 300px; /* Augmenté de 300px pour laisser de la place au texte plus grand */
+    -fx-padding: 15 25 15 25; /* Plus d'espace interne */
+}
+
+/* Nettoyage des doublons .text-field */
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Optionnel : ajoutez un espacement dans les grilles */
+#topGrid, #outGrid {
+    -fx-hgap: 20;
+    -fx-vgap: 5;
+    -fx-padding: 15;
+}
+
+/* Titre principal plus imposant */
+.mainTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 42px; /* Augmenté de 28px */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+    -fx-padding: 30 0 20 0;
+}
+
+/* Style du label "Dehors :" et des éléments de la liste */
+.dehors, .out-name-label {
+    -fx-text-fill: white;
+    -fx-font-size: 20px; /* Taille identique pour le titre et les éléments */
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial", sans-serif; /* Moins gras que le Arial Black du Top */
+}
+
+.out-name-label {
+    -fx-padding: 5 10 5 0; /* Padding léger pour séparer les noms */
+}
+
+/* Sous-titre en bas */
+.subTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 28px; /* Augmenté de 21px */
+    -fx-alignment: CENTER;
+    -fx-padding: 20 0 30 0;
+}
+
+/* On peut différencier visuellement les places vides */
+.anime-name-label:empty {
+    -fx-text-fill: rgba(255, 255, 255, 0.3);
+}
+
+#outFlowPane {
+    -fx-padding: 0 0 0 40; /* Haut, Droite, Bas, GAUCHE (40px) */
+}
+
+#mainContainer {
+    -fx-padding: 20; /* Ajoute 20 pixels de padding sur les 4 côtés */
+}

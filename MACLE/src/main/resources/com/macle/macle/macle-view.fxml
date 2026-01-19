@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ScrollPane?>
+
+<HBox maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" styleClass="scene" stylesheets="@../../../style/MainSceneStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.macle.macle.MacleController">
+    <children>
+        <VBox fx:id="mainContainer" styleClass="region" HBox.hgrow="ALWAYS" alignment="TOP_CENTER"> <children>
+            <Label fx:id="mainTitleLabel" styleClass="mainTitle" text="TITRE PAR DEFAULT1" alignment="CENTER" maxWidth="Infinity" />
+
+            <GridPane fx:id="topGrid" VBox.vgrow="ALWAYS" alignment="CENTER">
+            </GridPane>
+
+            <Label styleClass="dehors" text="Dehors :" />
+
+            <FlowPane fx:id="outFlowPane" hgap="10.0" vgap="5.0" VBox.vgrow="SOMETIMES">
+                <padding>
+                    <Insets top="40.0" bottom="20.0" />
+                </padding>
+            </FlowPane>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Label fx:id="subTitleLabel" styleClass="subTitle" text="SousTitre par défault" alignment="CENTER" maxWidth="Infinity"/>
+        </children>
+        </VBox>
+        <ScrollPane fx:id="settingsScroll"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="NEVER"
+                    prefWidth="350.0"
+                    minWidth="350.0"
+                    maxWidth="350.0"
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
+            <content>
+                <VBox styleClass="region" spacing="10.0" prefWidth="300.0" minWidth="300.0" maxWidth="300.0">
+                    <children>
+                        <VBox styleClass="region" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="boxTitle" text="Ajouter un Anime" />
+                                <Label styleClass="boxSubTitle" text="Nom de l'Anime" textFill="#f8f8f8" />
+                                <TextField fx:id="animeNameField" promptText="Entrez le nom ici" />
+                                <Label styleClass="boxSubTitle" text="Position" textFill="WHITE" />
+                                <HBox spacing="10.0">
+                                    <children>
+                                        <Label text="Top :" textFill="WHITE" />
+                                        <Spinner fx:id="positionSpinner" maxWidth="80.0" />
+                                        <CheckBox fx:id="dehorsCheckBox" mnemonicParsing="false" text="Dehors" textFill="WHITE" />
+                                    </children>
+                                </HBox>
+                                <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddAnime" text="Ajouter" />
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox styleClass="region" VBox.vgrow="ALWAYS" spacing="10.0">
+                            <children>
+                                <Label styleClass="boxTitle" text="Paramètres Généraux" />
+
+                                <Label styleClass="boxSubTitle" text="Titre du top" />
+                                <TextField fx:id="mainTitleField" promptText="Titre du top ici" onKeyTyped="#onUpdateTitles" />
+
+                                <Label styleClass="boxSubTitle" text="Sous titre du top" />
+                                <TextField fx:id="subTitleField" promptText="Soustitre du top ici" onKeyTyped="#onUpdateTitles" />
+
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="boxSubTitle" text="Nombre de places" />
+                                        <ChoiceBox fx:id="nbPlaceChoiceBox" />
+                                    </children>
+                                </HBox>
+
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="boxSubTitle" text="Image de fond" />
+                                        <Button styleClass="text-field" text="Import Image" onAction="#onImportImage" />
+                                    </children>
+                                </HBox>
+                                <Label styleClass="boxSubTitle" text="Opacité du fond" textFill="WHITE" />
+                                <Slider fx:id="backgroundOpacitySlider" min="0" max="1" value="1" onMouseReleased="#rafraichirToutesLesGrilles" />
+
+                                <VBox spacing="5.0" styleClass="region">
+                                    <Label styleClass="boxTitle" text="Style Titre" />
+                                    <Slider fx:id="titleFontSizeSlider" min="10" max="100" value="50" onMouseReleased="#rafraichirToutesLesGrilles" />
+                                    <ColorPicker fx:id="titleColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                                    <HBox spacing="10.0">
+                                        <Label styleClass="boxSubTitle" text="Contour"/>
+                                        <CheckBox fx:id="titleOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                        <Label styleClass="boxSubTitle" text="Gras"/>
+                                        <CheckBox fx:id="titleBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="5.0" styleClass="region">
+                                    <Label styleClass="boxTitle" text="Style Top" />
+                                    <Slider fx:id="topFontSizeSlider" min="10" max="80" value="36" onMouseReleased="#rafraichirToutesLesGrilles" />
+                                    <Label styleClass="boxSubTitle" text="Écart colonnes" textFill="WHITE" />
+                                    <Slider fx:id="columnGapSlider" min="20" max="300" value="120" onMouseReleased="#rafraichirToutesLesGrilles" />
+                                    <ColorPicker fx:id="topColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                                    <HBox spacing="10.0">
+                                        <Label styleClass="boxSubTitle" text="Contour"/>
+                                        <CheckBox fx:id="topOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                        <Label styleClass="boxSubTitle" text="Gras"/>
+                                        <CheckBox fx:id="topBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="5.0" styleClass="region">
+                                    <Label styleClass="boxTitle" text="Style Sous-Titre" />
+                                    <Slider fx:id="subFontSizeSlider" min="10" max="80" value="28" onMouseReleased="#rafraichirToutesLesGrilles" />
+                                    <ColorPicker fx:id="subColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                                    <HBox spacing="10.0">
+                                        <Label styleClass="boxSubTitle" text="Contour"/>
+                                        <CheckBox fx:id="subOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                        <Label styleClass="boxSubTitle" text="Gras"/>
+                                        <CheckBox fx:id="subBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="5.0" styleClass="region">
+                                    <Label styleClass="boxTitle" text="Style Dehors" />
+                                    <Slider fx:id="outFontSizeSlider" min="10" max="60" value="20" onMouseReleased="#rafraichirToutesLesGrilles" />
+                                    <ColorPicker fx:id="outColorPicker" onAction="#rafraichirToutesLesGrilles" />
+                                    <HBox spacing="10.0">
+                                        <Label styleClass="boxSubTitle" text="Contour"/>
+                                        <CheckBox fx:id="outOutlineCheckBox" text="Contour" onAction="#rafraichirToutesLesGrilles" />
+                                        <Label styleClass="boxSubTitle" text="Gras"/>
+                                        <CheckBox fx:id="outBoldCheckBox" text="Gras" onAction="#rafraichirToutesLesGrilles" />
+                                    </HBox>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox spacing="5.0" styleClass="region">
+                            <children>
+                                <Button maxWidth="Infinity" mnemonicParsing="false" text="Import Top" onAction="#onImportTop"/>
+                                <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to json" onAction="#onExportToJson"/>
+                                <Button maxWidth="Infinity" mnemonicParsing="false" text="Export to PNG" onAction="#onExportToPNG"/>
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox alignment="CENTER" styleClass="region">
+                            <children>
+                                <Label styleClass="boxSubTitle" text="Fait par @gredimiya" />
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </HBox.margin>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</HBox>
