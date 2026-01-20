@@ -1,6 +1,6 @@
 # MACLE - Anime Ranking Studio
 
-**MACLE** est une application de bureau intuitive conçue pour créer, personnaliser et partager vos classements d'animes (Top) avec une esthétique professionnelle. Développée en JavaFX, elle permet une gestion dynamique de vos listes via le glisser-déposer et une personnalisation poussée du rendu visuel.
+**MACLE** est une application de bureau intuitive conçue pour créer, personnaliser et partager vos classements d'animes (Top). Développée en JavaFX, elle permet une gestion dynamique de vos listes via le glisser-déposer et une personnalisation poussée du rendu visuel.
 
 ---
 
@@ -10,7 +10,6 @@ L'application est distribuée sous forme d'image autonome (**dist**). Vous n'ave
 
 1. **Téléchargez** l'archive `.zip` de l'application.
 2. **Extrayez** le contenu de l'archive dans le dossier de votre choix.
-3. Ouvrez le dossier extrait, allez dans le sous-dossier **`bin`**.
 4. Lancez l'exécutable **`MacleRanking.exe`**.
 
 > **Note :** Si Windows SmartScreen affiche une alerte au premier lancement, cliquez sur *"Informations complémentaires"* puis *"Exécuter quand même"*.
