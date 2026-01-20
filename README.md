@@ -51,7 +51,6 @@ Si vous souhaitez modifier le code ou compiler l'application vous-même :
 * **JDK 21** ou supérieur.
 * **Maven** (ou utilisez le wrapper `./mvnw` inclus).
 
-### Compilation
-Générez le fichier JAR exécutable avec :
-```powershell
-./mvnw clean package
+## 👤 Crédits
+
+Application développée par @gredimiya.
